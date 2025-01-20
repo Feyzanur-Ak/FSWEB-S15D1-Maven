@@ -30,25 +30,26 @@ public class MobilePhone {
     }
 
     public boolean updateContact(Contact oldContact, Contact newContact) {
-        int foundPosition = findContact(oldContact.getName()); // oldContact'ın ismiyle arama yap
-        if (foundPosition < 0) {
+        if (!myContacts.contains(oldContact)) { // Burada eski kişi kontrol edilmeli
             System.out.println(oldContact.getName() + " bulunamadı.");
             return false;
         }
+        int foundPosition = myContacts.indexOf(oldContact); // indexOf ile pozisyon bulma
         myContacts.set(foundPosition, newContact);
         return true;
     }
 
+
     public boolean removeContact(Contact contact) {
-        int foundPosition = findContact(contact.getName()); // contact'ın ismiyle arama yap
-        if (foundPosition < 0) {
+        if (!myContacts.contains(contact)) {
             System.out.println(contact.getName() + " bulunamadı.");
             return false;
         }
-        myContacts.remove(foundPosition);
+        myContacts.remove(contact);
         return true;
     }
 
+    // Mevcut findContact metodu (String parametre alır)
     public int findContact(String name) {
         for (int i = 0; i < myContacts.size(); i++) {
             Contact contact = myContacts.get(i);
@@ -59,7 +60,15 @@ public class MobilePhone {
         return -1; // Bulunamadıysa -1 döner
     }
 
-    public Contact queryContact(String name) {
+    // Yeni findContact metodu (Contact parametre alır)
+      public int findContact(Contact contact) {
+          if (contact == null) {
+              return -1; // Geçersiz bir Contact nesnesi verilirse -1 döner
+          }
+          return findContact(contact.getName()); // Mevcut findContact(String) metodunu çağırır
+
+      }
+        public Contact queryContact(String name) {
         for (Contact contact : myContacts) {
             if (contact.getName().equalsIgnoreCase(name)) {
                 // equalsIgnoreCase stringleri büyük/küçük harf farkı olmaksızın karşılaştırır.
