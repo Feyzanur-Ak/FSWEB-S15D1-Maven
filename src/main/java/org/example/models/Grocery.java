@@ -1,6 +1,7 @@
 package org.example.models;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 import java.util.Scanner;
 
@@ -62,6 +63,7 @@ public class Grocery {
                 }
             }
         }
+        Collections.sort(groceryList);
     }
 
     // Listeden eleman çıkarır
@@ -92,6 +94,7 @@ public class Grocery {
         } else {
             System.out.println("Güncel alışveriş listesi (sıralı): " + groceryList);
         }
+        Collections.sort(groceryList);
     }
 }
 
